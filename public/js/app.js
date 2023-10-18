@@ -1,3 +1,39 @@
+function loadPaymentLists() {
+    const paymentListsContainer = document.getElementById('paymentLists');
+
+    // Fetching the payment lists from Firestore
+   // const user = firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
+    if (user) {
+        const userId = user.uid;
+
+        firebase.firestore().collection('payment_lists')
+            .where('userId', '==', userId)
+            .get()
+            .then((querySnapshot) => {
+                paymentListsContainer.innerHTML = ''; // Clear the container before populating
+                querySnapshot.forEach((doc) => {
+                    const paymentListData = doc.data();
+                    const paymentListDiv = `
+                        <div class="payment-list">
+                            <h2>${paymentListData.listName}</h2>
+                            <button class="make-payment">Make Payment</button>
+                            <button class="schedule-payment">Schedule Payment</button>
+                        </div>
+                    `;
+                    paymentListsContainer.innerHTML += paymentListDiv;
+                });
+            })
+            .catch((error) => {
+                console.error("Error getting documents: ", error);
+            });
+    } else {
+        paymentListsContainer.innerHTML = '<p>You need to sign in to see your payment lists.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadPaymentLists); // Load the payment lists when the document is ready
+
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('signOutButton').addEventListener('click', signOut);
@@ -36,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const firstName = user.displayName.split(' ')[0];
 
             // Update the dashboard with the user's first name
-            document.getElementById('userName').textContent = firstName;
+            //document.getElementById('userName').textContent = firstName;
             //document.getElementById('userName').textContent = user.displayName;
             //document.getElementById('userEmail').textContent = user.email;
             //document.getElementById('userPhoto').src = user.photoURL;
@@ -52,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const companyName = doc.data().companyName;
                         const accountBalanceElement = document.getElementById('account-balance');
                         const companyNameElement = document.getElementById('company-name');
-                        accountBalanceElement.innerText = `${accountBalance}`;
+                        //accountBalanceElement.innerText = `${accountBalance}`;
                         companyNameElement.innerText = `${companyName}`;
                     } else {
                         console.log('User balance not found');
@@ -67,4 +103,5 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = "index.html";
         }
     });
+    
 }); 

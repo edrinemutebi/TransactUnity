@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 50px;
+}
+
+.content {
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.payment-list {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.payment-list h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.payment-list button {
+    padding: 5px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.payment-list button.make-payment {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.payment-list button.schedule-payment {
+    background-color: #FFC107;
+    color: white;
+}
