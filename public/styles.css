@@ -1,57 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    padding: 50px;
+    text-align: center;
 }
 
 .container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 h1 {
-    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+.input-group {
     margin-bottom: 20px;
+    text-align: left;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-weight: bold;
+.input-group label {
+    display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
-input {
+.input-group input {
+    width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
     font-size: 16px;
 }
 
-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-
-.blurry-form {
-    filter: blur(4px); /* Adjust the blur strength as needed */
-    pointer-events: none; /* Prevent interactions with the form */
-    opacity: 0.7; /* Adjust the opacity for a faded look */
+.submit-btn:hover {
+    background-color: #45a049;
 }

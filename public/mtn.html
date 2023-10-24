@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Proxy Test</title>
+</head>
+<body>
+
+    <h1>API Proxy Test Page</h1>
+    <button id="fetchData">Fetch API USER</button>
+    <button id="fetchData1">REQUEST UUID</button>
+    <button id="fetchData2">API AUTH TOKEN</button>
+    <button id="fetch">REQUEST info</button>
+    <button id="fetch_it">REQUEST PAY</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('fetchData').addEventListener('click', function() {
+            fetch('https://us-central1-transactunity.cloudfunctions.net/proxyApi')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').textContent = 'Failed to fetch data.';
+                });
+        });
+
+        // uuid request
+        document.getElementById('fetchData1').addEventListener('click', function() {
+        fetch('https://us-central1-transactunity.cloudfunctions.net/proxyApi1')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text(); // Change this line to handle plain text response
+            })
+            .then(data => {
+                document.getElementById('result').innerHTML = `<pre>${data}</pre>`; // Display the plain text UUID
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+
+        //Api token
+        document.getElementById('fetchData2').addEventListener('click', function() {
+            fetch('https://us-central1-transactunity.cloudfunctions.net/proxyApi3')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').textContent = 'Failed to fetch data.';
+                });
+        });
+
+        document.getElementById('fetch').addEventListener('click', function() {
+            fetch('https://us-central1-transactunity.cloudfunctions.net/proxyApi2')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').textContent = 'Failed to fetch data.';
+                });
+        });
+
+
+                //Api  YY
+document.getElementById('fetch_it').addEventListener('click', function() {
+    fetch('https://us-central1-transactunity.cloudfunctions.net/getTransaction')
+        .then(response => {
+            if (!response.ok) {
+                // When response is not ok, throw an error with the status code
+                throw new Error('Error: ' + response.status);
+            }
+            // If you still want to display some JSON content when the response is ok
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                return response.text(); // Handling non-JSON responses
+            }
+            // return response.json();
+        })
+        .then(data => {
+            // If the response is ok, the JSON content will be displayed
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // If the response is not ok, the status code will be displayed
+            document.getElementById('result').textContent = error.message;
+        });
+});
+
+
+
+    </script>
+
+</body>
+</html>

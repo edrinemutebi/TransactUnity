@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+#app {
+    max-width: 800px;
+    margin: 0px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.form-horizontal label {
+    width: 150px;
+    padding: 10px;
+}
+
+
+.form-horizontal button:hover {
+    background-color: #45a049;
+}
+
+
