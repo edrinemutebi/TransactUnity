@@ -31,6 +31,7 @@
     <script defer src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
     <link href="../assets/css/soft-ui-dashboard-tailwind.css?v=1.0.5" rel="stylesheet" />
+    <link href="../assets/css/custom-styles.css" rel="stylesheet" />
 
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
@@ -54,6 +55,7 @@
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script defer src="../assets/js/dashboard.js"></script>
+
   </head>
 
   <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
@@ -383,7 +385,7 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Money In</p>
                       <h5 class="mb-0 font-bold">
-                        2,300
+                          UGX  <span id="money-in"></span>
                         <span class="leading-normal text-sm font-weight-bolder text-lime-500">+3%</span>
                       </h5>
                     </div>
@@ -407,7 +409,7 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Payments</p>
                       <h5 class="mb-0 font-bold">
-                        +3,462
+                        UGX <span id="money-out"></span>
                         <span class="leading-normal text-red-600 text-sm font-weight-bolder">-2%</span>
                       </h5>
                     </div>
@@ -484,7 +486,63 @@
 
         <!-- button Actions -->
         <!-- content -->
-        <!-- <div class="flex flex-wrap -mx-3">
+        <div class="flex flex-wrap -mx-3">
+          <div class="max-w-full px-3 lg:w-2/3 lg:flex-none">
+            <div class="flex flex-wrap -mx-3">
+              <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
+                <div class="relative flex flex-col min-w-0 mt-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+                  <div class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                    <div class="flex flex-wrap -mx-3">
+                      <div class="flex items-center flex-none w-1/2 max-w-full px-3">
+                        <h6 class="mb-0">Wallet Top Up</h6>
+                      </div>
+                      <div class="flex-none w-1/2 max-w-full px-3 text-right">
+                        <a  class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25" href="javascript:;"> <i class="fas fa-plus"> </i>&nbsp;&nbsp;Top Up</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="addmoneyform" class="flex-auto p-4">
+                    <div id="result"></div>
+                    <form role="form" onsubmit="event.preventDefault(); fetchTransaction();">
+                        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone No.</label>
+                        <div class="mb-4">
+                            <input id="payer_id" 
+                                  type="tel" 
+                                  pattern="[0-9]{10}" 
+                                  title="Phone number should be 10 digits long and contain only numbers"
+                                  required 
+                                  class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" 
+                                  placeholder="Phone Number" 
+                                  aria-label="Phone Number" 
+                                  aria-describedby="phone-addon" />
+                        </div>
+                        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Amount</label>
+                        <div class="mb-4">
+                            <input id="amount" 
+                                  type="number" 
+                                  required 
+                                  class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" 
+                                  placeholder="Amount to Top Up" 
+                                  aria-label="Amount" 
+                                  aria-describedby="amount-addon" />
+                        </div>
+                        <div class="text-center">
+                          <button id="fetch_it" 
+                                  type="submit" 
+                                  class="inline-block w-full px-3 py-3 mt-3 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">
+                              Top Up
+                          </button>
+                        </div>
+                    </form>                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- content
+        <div class="flex flex-wrap -mx-3">
           <div class="max-w-full px-3 lg:w-2/3 lg:flex-none">
             <div class="flex flex-wrap -mx-3">
               <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
@@ -495,11 +553,34 @@
                         <h6 class="mb-0">Your Registered No.</h6>
                       </div>
                       <div class="flex-none w-1/2 max-w-full px-3 text-right">
-                        <a class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25" href="javascript:;"> <i class="fas fa-plus"> </i>&nbsp;&nbsp;Top Up.</a>
+                        <a  class="inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-to-tl from-gray-900 to-slate-800 hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25" href="javascript:;"> <i class="fas fa-plus"> </i>&nbsp;&nbsp;Top Up.</a>
+                      <button id="fetch_it">use this</button>
+                      <button id="fetchData">Fetch API USER</button>
+                      <button id="fetchData1">REQUEST UUID</button>
+                      <button id="fetchData2">API AUTH TOKEN</button>
+                      <button id="fetch">REQUEST info</button>
+                      <div id="result"></div>
                       </div>
                     </div>
                   </div>
                   <div class="flex-auto p-4">
+
+                    <form role="form">
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone No.</label>
+                      <div class="mb-4">
+                        <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Phone Number" aria-label="Email" aria-describedby="email-addon" />
+                      </div>
+                      <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Amount</label>
+                      <div class="mb-4">
+                        <input type="text" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Amount to Top Up" aria-label="Email" aria-describedby="email-addon" />
+                      </div>
+                      <div class="text-center">
+                        <button type="button" class="inline-block w-full px-3 py-3 mt-3 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Top Up</button>
+                      </div>
+                    </form>
+
+
+
                     <div class="flex flex-wrap -mx-3">
                       <div class="max-w-full px-3 mb-6 md:mb-0 md:w-1/2 md:flex-none">
                         <div class="relative flex flex-row items-center flex-auto min-w-0 p-6 break-words bg-transparent border border-solid shadow-none rounded-xl border-slate-100 bg-clip-border">
@@ -622,4 +703,5 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- main script file  -->
   <script src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5" async></script>
+  <script defer src="../assets/js/api-functions.js"></script>
 </html>

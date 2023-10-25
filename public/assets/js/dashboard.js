@@ -48,6 +48,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch((error) => {
                     console.error('Error checking profile status', error);
                 });
+            
+            function listenForBalanceUpdates(userId) {
+                //const userRef = db.collection('Users').doc(userId);
+                
+                userRef.onSnapshot((doc) => {
+                    if (doc.exists) {
+                    const balance = doc.data().accountBalance;
+                    const money_in = doc.data().money_in;
+                    const money_out = doc.data().money_out;
+                    updateUI(balance,money_in,money_out);
+                    } else {
+                    console.error("No such document!");
+                    }
+                }, (error) => {
+                    console.error("Error getting document:", error);
+                });
+            }
+        
+            function updateUI(balance,money_in,money_out) {
+                const balanceElement = document.getElementById('account-balance');
+                const money_inElement = document.getElementById('money-in');
+                const money_outElement = document.getElementById('money-out');
+                balanceElement.textContent = balance;
+                money_inElement.textContent = money_in;
+                money_outElement.textContent = money_out;
+            }
+
+            listenForBalanceUpdates(user.uid);
+            
 
         } else {
         console.log('No user is signed in');

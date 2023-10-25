@@ -1,0 +1,5 @@
+.blur-effect {
+    filter: blur(8px);
+    pointer-events: none;
+    user-select: none;
+}
