@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <title>Payment Lists</title>
+    <title>Upload</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
@@ -27,6 +27,7 @@
     <!-- Nucleo Icons -->
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../assets/css/paymentlist_styles.css" rel="stylesheet" />
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
@@ -217,7 +218,6 @@
     </aside>
 
     <!-- end sidenav -->
-
     <main class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
       <!-- Navbar -->
       <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
@@ -341,81 +341,54 @@
 
       <!-- cards -->
         <!-- table 1 -->
+        <div id="app">
+          <h4>Upload List</h4>
+          <div class="mb-6 mt-2">
+            <form role="form text-left">
+              <!-- excel file upload -->
+              <div id="excelUploadContainer">
+                <label for="excelFile" class="cursor-pointer text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-60 appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 48 48">
+                    <path fill="#4CAF50" d="M41,10H25v28h16c0.553,0,1-0.447,1-1V11C42,10.447,41.553,10,41,10z"></path><path fill="#FFF" d="M32 15H39V18H32zM32 25H39V28H32zM32 30H39V33H32zM32 20H39V23H32zM25 15H30V18H25zM25 25H30V28H25zM25 30H30V33H25zM25 20H30V23H25z"></path><path fill="#2E7D32" d="M27 42L6 38 6 10 27 6z"></path><path fill="#FFF" d="M19.129,31l-2.411-4.561c-0.092-0.171-0.186-0.483-0.284-0.938h-0.037c-0.046,0.215-0.154,0.541-0.324,0.979L13.652,31H9.895l4.462-7.001L10.274,17h3.837l2.001,4.196c0.156,0.331,0.296,0.725,0.42,1.179h0.04c0.078-0.271,0.224-0.68,0.439-1.22L19.237,17h3.515l-4.199,6.939l4.316,7.059h-3.74V31z"></path>
+                  </svg>
+                  <span>&nbsp;&nbsp;</span>Upload Your Payment File (Excel)
+                </label>
+                <input type="file" id="excelFile" style="display:none;" accept=".xlsx, .xls" onchange="handleFile()" />
+              </div>
+            </form>
+          </div>
 
-          <div class="flex-none w-full max-w-full px-3">
-              <div class="w-full max-w-full px-3 mt-6 md:w-8/12 md:flex-none">
-                <div class="relative flex flex-col h-full min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                  <div class="p-6 px-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                    <div class="flex flex-wrap -mx-3">
-                      <div class="max-w-full px-3 md:w-1/2 md:flex-none">
-                        <h6 class="mb-0">Your Transactions</h6>
-                      </div>
-                      <div class="flex items-center justify-end max-w-full px-3 md:w-1/2 md:flex-none">
-                        <i class="mr-2 far fa-calendar-alt"></i>
-                        <small>23 - 30 March 2020</small>
-                      </div>
-                    </div>
+
+
+
+          <div id="itemForm" style="display:none;">
+              <div class="flex-none w-full max-w-full px-3">
+                <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+                  <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                    <h6>Uploaded List&nbsp;&nbsp;-&nbsp;&nbsp;<span id="listTitle" ></span></h6>
                   </div>
-                  <div class="flex-auto p-4 pt-6">
-                    <h6 class="mb-4 font-bold leading-tight uppercase text-xs text-slate-500">Newest</h6>
-                    <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                      <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                        <div class="flex items-center">
-                          <button class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-red-600 border-transparent bg-transparent text-center align-middle font-bold uppercase text-red-600 transition-all hover:opacity-75"><i class="fas fa-arrow-down text-3xs"></i></button>
-                          <div class="flex flex-col">
-                            <h6 class="mb-1 leading-normal text-sm text-slate-700">Netflix</h6>
-                            <span class="leading-tight text-xs">27 March 2020, at 12:30 PM</span>
-                          </div>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                          <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-red-600 to-rose-400 text-sm bg-clip-text">- $ 2,500</p>
-                        </div>
-                      </li>
-                      <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 border-t-0 rounded-b-inherit text-inherit rounded-xl">
-                        <div class="flex items-center">
-                          <button class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i class="fas fa-arrow-up text-3xs"></i></button>
-                          <div class="flex flex-col">
-                            <h6 class="mb-1 leading-normal text-sm text-slate-700">Apple</h6>
-                            <span class="leading-tight text-xs">27 March 2020, at 04:30 AM</span>
-                          </div>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                          <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">+ $ 2,000</p>
-                        </div>
-                      </li>
-                    </ul>
-                    <h6 class="my-4 font-bold leading-tight uppercase text-xs text-slate-500">Yesterday</h6>
-                    <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                      <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                        <div class="flex items-center">
-                          <button class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-lime-500 border-transparent bg-transparent text-center align-middle font-bold uppercase text-lime-500 transition-all hover:opacity-75"><i class="fas fa-arrow-up text-3xs"></i></button>
-                          <div class="flex flex-col">
-                            <h6 class="mb-1 leading-normal text-sm text-slate-700">Stripe</h6>
-                            <span class="leading-tight text-xs">26 March 2020, at 13:45 PM</span>
-                          </div>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                          <p class="relative z-10 inline-block m-0 font-semibold leading-normal text-transparent bg-gradient-to-tl from-green-600 to-lime-400 text-sm bg-clip-text">+ $ 750</p>
-                        </div>
-                      </li>
-                      <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 border-t-0 rounded-b-inherit text-inherit rounded-xl">
-                        <div class="flex items-center">
-                          <button class="leading-pro ease-soft-in text-xs bg-150 w-6.35 h-6.35 p-1.2 rounded-3.5xl tracking-tight-soft bg-x-25 mr-4 mb-0 flex cursor-pointer items-center justify-center border border-solid border-slate-700 border-transparent bg-transparent text-center align-middle font-bold uppercase text-slate-700 transition-all hover:opacity-75"><i class="fas fa-exclamation text-3xs"></i></button>
-                          <div class="flex flex-col">
-                            <h6 class="mb-1 leading-normal text-sm text-slate-700">Webflow</h6>
-                            <span class="leading-tight text-xs">26 March 2020, at 05:00 AM</span>
-                          </div>
-                        </div>
-                        <div class="flex flex-col items-center justify-center">
-                          <p class="flex items-center m-0 font-semibold leading-normal text-sm text-slate-700">Pending</p>
-                        </div>
-                      </li>
-                    </ul>
+                  <div class="flex-auto px-0 pt-0 pb-2">
+                    <div class="p-0 overflow-x-auto">
+                      <table id="itemList" class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                        <thead class="align-bottom">
+                          <tr>
+                            <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Receiver Name</th>
+                            <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Phone No.</th>
+                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Amount</th>
+                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Reason</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
+              
+              <button class="inline-block w-30 px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white" onclick="saveList()">Save List</button>
           </div>
-  
+        </div>
       <!-- end cards -->
     </main>
     <div fixed-plugin>
@@ -483,7 +456,7 @@
     </div>
   </body>
   <!-- js for firebase  -->
-  <script src="../assets/js/profile.js" async></script>
+
   <!-- plugin for charts  -->
   <script src="../assets/js/plugins/chartjs.min.js" async></script>
   <!-- plugin for scrollbar  -->
@@ -492,4 +465,6 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- main script file  -->
   <script src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5" async></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script defer src="../assets/js/excel.js" async></script>
 </html>
