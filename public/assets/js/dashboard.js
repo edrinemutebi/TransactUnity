@@ -91,17 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function formatUgandanAmount(amount) {
         if (amount >= 1000000) {
-          const formattedAmount = (amount / 1000000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return `UGX ${formattedAmount}M`; // Format in millions
+          const formattedAmount = (amount / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+          return `${formattedAmount}`; // Format in millions
         } else if (amount >= 1000) {
-          const formattedAmount = (amount / 1000).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return `UGX ${formattedAmount}K`; // Format in thousands
+          const formattedAmount = (amount / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+          return `${formattedAmount}`; // Format in thousands
         } else {
-          const formattedAmount = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return `UGX ${formattedAmount}`; // Format as is
+          return `${amount}`; // Format as is
         }
       }
-         
+
 
     // Auth state observer
     firebase.auth().onAuthStateChanged((user) => {
@@ -160,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const money_inElement = document.getElementById('money-in');
                 const money_outElement = document.getElementById('money-out');
                 balance = formatUgandanAmount(balance)
+                money_in = formatUgandanAmount(money_in)
                 balanceElement.textContent = balance;
                 money_inElement.textContent = money_in;
                 money_outElement.textContent = money_out;
