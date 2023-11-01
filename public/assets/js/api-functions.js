@@ -46,7 +46,7 @@
                 checkTransactionStatus(uuid);
             }
 
-            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+           // document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
         })
         .catch(error => {
             console.error('Error:', error);
@@ -102,11 +102,11 @@ function checkTransactionStatus(uuid) {
 
                 // Do something with the extracted information if necessary
                 console.log(`Response: ${responseInfo}`);
-                document.getElementById('result').innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                //document.getElementById('result').innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('result').textContent += error.message;
+            //document.getElementById('result').textContent += error.message;
         })
               
     }

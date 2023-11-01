@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  signOutUser(); // Signing out any currently signed-in user
+  //signOutUser(); // Signing out any currently signed-in user
   
   const signInWithGoogleButton = document.getElementById('signInWithGoogle');
   

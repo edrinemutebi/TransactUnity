@@ -10,7 +10,6 @@ function handleFile() {
         // Set the file name as the list name
         appState.listName = file.name.split('.').slice(0, -1).join('.'); // Remove the file extension
         const listName =  appState.listName
-        sessionStorage.setItem('listNameRef', listName);
         
         document.getElementById('listTitle').textContent = listName;
 
@@ -81,6 +80,8 @@ function createList() {
     document.getElementById('itemForm').style.display = 'block';
 }
 
+
+
 function generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -96,34 +97,37 @@ function saveList() {
     const listName =  appState.listName
 
     const table = document.getElementById('itemList').getElementsByTagName('tbody')[0];
-    const paymentList = {};
+    const paymentList = [];
 
     for (let row of table.rows) {
         const cells = row.getElementsByTagName('td');
-    
+
         let recipientName = cells[0].getElementsByTagName('h6')[0].innerText;
         let recipientNumber = cells[1].innerText.trim();
         let amount = cells[2].innerText.trim();
         let reason = cells[3].innerText.trim(); // Capturing the full reason/description
-    
-        let itemId = generateUUID(); // Assuming generateUUID() function is available
-    
-        paymentList[itemId] = {
-            itemId: itemId,
+
+        let paymentRecord = {
+            itemId: generateUUID(),
             recipientName: recipientName, // Extracting the name from inside the nested structure
             recipientNumber: recipientNumber,
             amount: amount,
             reason: reason, // Capturing as description
             status: "pending"
         };
-    }    
 
-    firebase.firestore().collection('payment_lists').doc(user.uid).collection('lists').add({
+        paymentList.push(paymentRecord);
+    }
+
+    firebase.firestore().collection('payment_lists').add({
+        userId,
+        category,
+        listName,
         paymentList
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
-        //alert("The payment list has been saved!");
+        alert("The payment list has been saved!");
         sessionStorage.setItem('docRef', docRef.id);
         window.location.href = 'view-list.html';
         console.error("saveddd");
@@ -132,8 +136,6 @@ function saveList() {
         console.error("Error adding document: ", error);
     });
 }
-
-
 
 
 document.addEventListener('DOMContentLoaded', function() {

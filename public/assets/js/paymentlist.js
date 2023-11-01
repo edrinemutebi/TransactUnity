@@ -44,7 +44,7 @@ function addItem() {
       <p class="mb-0 text-xs font-semibold leading-tight">${recipientNumber}</p>
     </td>
     <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-      <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">UGX - ${amount}</span>
+      <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">${amount}</span>
     </td>
     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
       <span class="text-xs font-semibold leading-tight text-slate-400">${displayReason}</span>
@@ -69,7 +69,7 @@ function generateUUID() {
     });
 }
 
-function saveList() {
+function saveList7() {
     const user = firebase.auth().currentUser;
     const userId = (user.uid); // TODO: Replace with actual user ID
     const category = "general"
@@ -102,6 +102,51 @@ function saveList() {
         category,
         listName,
         items
+    })
+    .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        alert("The payment list has been saved!");
+        sessionStorage.setItem('docRef', docRef.id);
+        window.location.href = 'view-list.html';
+        console.error("saveddd");
+    })
+    .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+}
+
+function saveList() {
+    const user = firebase.auth().currentUser;
+    const userId = (user.uid); // TODO: Replace with actual user ID
+    const category = "general"
+    //const category = document.getElementById('category').value; // Assuming you have a select input with id="category"
+    const listName =  document.getElementById('listName').value;
+
+    const table = document.getElementById('itemList').getElementsByTagName('tbody')[0];
+    const paymentList = {};
+
+    for (let row of table.rows) {
+        const cells = row.getElementsByTagName('td');
+    
+        let recipientName = cells[0].getElementsByTagName('h6')[0].innerText;
+        let recipientNumber = cells[1].innerText.trim();
+        let amount = cells[2].innerText.trim();
+        let reason = cells[3].innerText.trim(); // Capturing the full reason/description
+    
+        let itemId = generateUUID(); // Assuming generateUUID() function is available
+    
+        paymentList[itemId] = {
+            itemId: itemId,
+            recipientName: recipientName, // Extracting the name from inside the nested structure
+            recipientNumber: recipientNumber,
+            amount: amount,
+            reason: reason, // Capturing as description
+            status: "pending"
+        };
+    }    
+
+    firebase.firestore().collection('payment_lists').doc(user.uid).collection('lists').add({
+        paymentList
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);

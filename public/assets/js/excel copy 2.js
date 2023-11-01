@@ -118,12 +118,12 @@ function saveList() {
         };
     }    
 
-    firebase.firestore().collection('payment_lists').doc(user.uid).collection('lists').add({
+    firebase.firestore().collection('payment_lists').add({
         paymentList
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
-        //alert("The payment list has been saved!");
+        alert("The payment list has been saved!");
         sessionStorage.setItem('docRef', docRef.id);
         window.location.href = 'view-list.html';
         console.error("saveddd");
@@ -132,9 +132,6 @@ function saveList() {
         console.error("Error adding document: ", error);
     });
 }
-
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
    
