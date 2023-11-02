@@ -36,17 +36,19 @@
                 // Extract the response and uuid
                 const responseInfo = data.text; // Assuming response data is under key "response"
                 const uuid = data.uuid; // Assuming uuid is under key "uuid"
-
-                
     
                 // Do something with the extracted information if necessary
                 console.log(`Response: ${responseInfo}, UUID: ${uuid}`);
 
-                        // Call the function to check the transaction status and handle Firestore operations
+                // Call the function to check the transaction status and handle Firestore operations
                 checkTransactionStatus(uuid);
+
+                // Clear Form
+                document.getElementById('amount').value = '';
+                document.getElementById('payer_id').value = '';
+
             }
 
-           // document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
         })
         .catch(error => {
             console.error('Error:', error);
@@ -65,8 +67,6 @@
     // document.getElementById('fetch_it').addEventListener('click', fetchTransaction);
 
 
-// Initialize Firebase
-// firebase.initializeApp(yourFirebaseConfig);
 
 function checkTransactionStatus(uuid) {
     if (uuid) {
@@ -131,7 +131,7 @@ function updateFirestore(data) {
     db.collection('Users').doc(userId).collection('transactions').add(transactionData)
         .then(() => {
             console.log("Transaction successfully written!");
-            alert("Transaction Completed successfully");
+            //alert("Transaction Completed successfully");
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
