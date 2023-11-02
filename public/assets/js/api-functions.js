@@ -43,7 +43,7 @@
                 // Call the function to check the transaction status and handle Firestore operations
                 checkTransactionStatus(uuid);
 
-                // Clear Form
+                //Clear Form
                 document.getElementById('amount').value = '';
                 document.getElementById('payer_id').value = '';
 
